@@ -80,7 +80,8 @@ public class JanelaConsulta extends javax.swing.JFrame {
         
         double valor = 250; // ex: valor da consulta (criminalidade ou distância)
         GeoPosition loc = new GeoPosition(-30.05, -51.18); // ex: localização da parada
-        lstPoints.add(new MyWaypoint(Color.BLUE, valor, loc));            
+       // lstPoints.add(new MyWaypoint(Color.BLUE, valor, loc));         
+        lstPoints.add(new MyWaypoint(Color.GREEN,valor, loc));
 
         // Informa o resultado para o gerenciador
         gerenciador.setPontos(lstPoints);
