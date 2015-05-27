@@ -23,7 +23,7 @@ public class ReadCSV {
 	 
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
-	 
+	 System.out.println();
 				String[] teste = line.split(cvsSplitBy);
 	 for(int i=0;i<teste.length;i++){
 		 System.out.print(teste[i]+" ");
