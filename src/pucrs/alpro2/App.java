@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package pucrs.alpro2;
-
+//Gustavo Agnes
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
