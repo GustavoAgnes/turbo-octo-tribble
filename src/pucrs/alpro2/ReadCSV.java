@@ -18,8 +18,14 @@ public class ReadCSV {
 		String nome = null;
 		obj.run(nome);
 	  }
+<<<<<<< HEAD
 	public void run(String nomeArq) {
 		String csvFile = "H:/turbo-octo-tribble/"+nomeArq+".csv";
+=======
+	public void run() {
+		 
+		String csvFile = "C:/Users/Gustavo Agnes/Documents/GitHub/furtos.csv";
+>>>>>>> 1cfb332dd262437b9dd0b3bed4b6f56a7cfb82ff
 		BufferedReader br = null;
 		BufferedReader br2 = null;
 		int count=0;
@@ -82,7 +88,7 @@ public class ReadCSV {
 				try {
 					br.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					e.printStackTraces();
 				}
 			}
 		}
