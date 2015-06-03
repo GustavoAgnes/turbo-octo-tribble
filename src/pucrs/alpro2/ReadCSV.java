@@ -18,14 +18,8 @@ public class ReadCSV {
 		String nome = null;
 		obj.run(nome);
 	  }
-<<<<<<< HEAD
 	public void run(String nomeArq) {
 		String csvFile = "H:/turbo-octo-tribble/"+nomeArq+".csv";
-=======
-	public void run() {
-		 
-		String csvFile = "C:/Users/Gustavo Agnes/Documents/GitHub/furtos.csv";
->>>>>>> 1cfb332dd262437b9dd0b3bed4b6f56a7cfb82ff
 		BufferedReader br = null;
 		BufferedReader br2 = null;
 		int count=0;
@@ -35,6 +29,7 @@ public class ReadCSV {
 		try {
 	 
 			br = new BufferedReader(new FileReader(csvFile));
+			br.skip(117);
 			while ((line = br.readLine()) != null) {
 	 System.out.println();
 	String[] teste = line.split(cvsSplitBy);
@@ -43,29 +38,29 @@ public class ReadCSV {
 	arquivo.createNewFile();
 	FileWriter fw = new FileWriter(arquivo);
 	BufferedWriter bw = new BufferedWriter(fw);
-	br.skip(117);
-	if(br.readLine().contains("RUA")){
+	//String linha = br.readLine();
+	if(line.contains("RUA")){
 	//	System.out.println("rua");
 		count++;
 		bw.write("Rua");
 		bw.newLine();
 	}
-	if(br.readLine().contains("AV")){
+	if(line.contains("AV")){
 		count++;
 		bw.write("Avenida");
 		bw.newLine();
 	}
-	if(br.readLine().contains("ESTR")){
+	if(line.contains("ESTR")){
 		count++;
 		bw.write("Estrada");
 		bw.newLine();
 	}
-	if(br.readLine().contains("TV")){
+	if(line.contains("TV")){
 		count++;
 		bw.write("TV");
 		bw.newLine();
 	}
-	if(br.readLine().contains("PCA")){
+	if(line.contains("PCA")){
 		count++;
 		bw.write("PCA");
 		bw.newLine();
@@ -88,7 +83,7 @@ public class ReadCSV {
 				try {
 					br.close();
 				} catch (IOException e) {
-					e.printStackTraces();
+					e.printStackTrace();
 				}
 			}
 		}
