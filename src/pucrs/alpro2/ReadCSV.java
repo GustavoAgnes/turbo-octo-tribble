@@ -7,14 +7,20 @@ import java.io.IOException;
 
 public class ReadCSV {
 	
+	public ReadCSV() {
+	}
 	public static void main(String[] args) {
 		 
 		ReadCSV obj = new ReadCSV();
-		obj.run();
+		String nome = null;
+		obj.run(nome);
 	  }
-	public void run() {
-		 
-		String csvFile = "/home/PORTOALEGRE/12105755/turbo-octo-tribble/furtos.csv";
+	
+	public void teste(){
+		System.out.println("teste");
+	}
+	public void run(String nomeArq) {
+		String csvFile = "H:/turbo-octo-tribble/"+nomeArq+".csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ";";
