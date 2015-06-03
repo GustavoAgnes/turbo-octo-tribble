@@ -1,8 +1,11 @@
 package pucrs.alpro2;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class ReadCSV {
@@ -15,13 +18,11 @@ public class ReadCSV {
 		String nome = null;
 		obj.run(nome);
 	  }
-	
-	public void teste(){
-		System.out.println("teste");
-	}
 	public void run(String nomeArq) {
 		String csvFile = "H:/turbo-octo-tribble/"+nomeArq+".csv";
 		BufferedReader br = null;
+		BufferedReader br2 = null;
+		int count=0;
 		String line = "";
 		String cvsSplitBy = ";";
 	 
@@ -30,9 +31,45 @@ public class ReadCSV {
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
 	 System.out.println();
-				String[] teste = line.split(cvsSplitBy);
-	 for(int i=0;i<teste.length;i++){
-		 System.out.print(teste[i]+" ");
+	String[] teste = line.split(cvsSplitBy);
+	//teste
+	File arquivo = new File("H:/turbo-octo-tribble/tipo.txt");
+	arquivo.createNewFile();
+	FileWriter fw = new FileWriter(arquivo);
+	BufferedWriter bw = new BufferedWriter(fw);
+	br.skip(117);
+	if(br.readLine().contains("RUA")){
+	//	System.out.println("rua");
+		count++;
+		bw.write("Rua");
+		bw.newLine();
+	}
+	if(br.readLine().contains("AV")){
+		count++;
+		bw.write("Avenida");
+		bw.newLine();
+	}
+	if(br.readLine().contains("ESTR")){
+		count++;
+		bw.write("Estrada");
+		bw.newLine();
+	}
+	if(br.readLine().contains("TV")){
+		count++;
+		bw.write("TV");
+		bw.newLine();
+	}
+	if(br.readLine().contains("PCA")){
+		count++;
+		bw.write("PCA");
+		bw.newLine();
+	}
+	System.out.println(count);
+	bw.close();
+	for(int i=0;i<teste.length;i++){
+		br2 = new BufferedReader(new FileReader(arquivo));
+		System.out.println(br2.readLine());
+		// System.out.print(teste[i]+" ");
 	 }
 			}
 	 
