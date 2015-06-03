@@ -14,7 +14,7 @@ public class ReadCSV {
 	  }
 	public void run() {
 		 
-		String csvFile = "/home/PORTOALEGRE/12105755/turbo-octo-tribble/furtos.csv";
+		String csvFile = "C:/Users/Gustavo Agnes/Documents/GitHub/furtos.csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ";";
@@ -39,7 +39,7 @@ public class ReadCSV {
 				try {
 					br.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					e.printStackTraces();
 				}
 			}
 		}
