@@ -19,7 +19,11 @@ public class ReadCSV {
 
 	public void run() {
 
+<<<<<<< HEAD
 		String csvFile = "H:/turbo-octo-tribble-master/furtos.csv";
+=======
+		String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
+>>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
 		BufferedReader br = null;
 		LinkedList lista = new LinkedList();
 		String line = "";
@@ -29,6 +33,7 @@ public class ReadCSV {
 
 			br = new BufferedReader(new FileReader(csvFile));
 			//
+<<<<<<< HEAD
 			// System.out.println(br.readLine());
 			//
 			while ((line = br.readLine()) != null) {
@@ -50,6 +55,32 @@ public class ReadCSV {
 
 			}
 			// }
+=======
+			System.out.println(br.readLine());
+			//
+			while ((line = br.readLine()) != null) {
+				br.skip(117);
+				System.out.println();
+				String[] div = line.split(cvsSplitBy);
+				String[] div2 = div[2].split(splitBy);
+				// for (int i = 0; i < div.length; i++) {
+				System.out.print(div[2] + " ");
+				if (div[2].startsWith("RUA")) {
+					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "RUA");                 //div2[0].replaceAll("\\s+"," "));
+				}
+				if (div[2].startsWith("AV")) {
+					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "AV");
+				}
+				if (div[2].startsWith("BC")) {
+					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "BC");
+				}
+				if (div[2].startsWith("PCA")) {
+					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "PCA");
+				}
+				// AV RUA BC PCA
+				// }
+			}
+>>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -62,6 +93,7 @@ public class ReadCSV {
 					e.printStackTrace();
 				}
 			}
+<<<<<<< HEAD
 			// System.out.println(lista.size());
 			// System.out.println(lista.getTipo(200));
 		}
@@ -71,3 +103,12 @@ public class ReadCSV {
 	}
 
 }
+=======
+			System.out.println(lista.size());
+			System.out.println(lista.getTipo(200));
+		}
+		System.out.println("Done");
+	}
+
+}
+>>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009

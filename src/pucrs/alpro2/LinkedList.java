@@ -267,10 +267,17 @@ public class LinkedList<E> {
 		String s = "{";
 		Node<E> aux = header.next;
 		if (aux != trailer) {
+<<<<<<< HEAD
 			s += "" + aux.tipo + ":" +aux.nome;
 			aux = aux.next;
 			while (aux != trailer) {
 				s += ", " + aux.tipo + ":" +aux.nome;
+=======
+			s += "" + aux.element;
+			aux = aux.next;
+			while (aux != trailer) {
+				s += ", " + aux.element;
+>>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
 				aux = aux.next;
 			}
 		}
