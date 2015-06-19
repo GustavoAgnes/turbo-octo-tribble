@@ -43,6 +43,7 @@ public class ReadCSV {
 			System.out.println(br.readLine());
 			//
 			while ((line = br.readLine()) != null) {
+				br.skip(117);
 				System.out.println();
 				String[] div = line.split(cvsSplitBy);
 				String[] div2 = div[2].split(splitBy);
