@@ -35,6 +35,7 @@ public class ReadCSV {
 		LinkedList lista = new LinkedList();
 		String line = "";
 		String cvsSplitBy = ";";
+		String splitBy = "\\.";
 		try {
 
 			br = new BufferedReader(new FileReader(csvFile));
@@ -44,20 +45,20 @@ public class ReadCSV {
 			while ((line = br.readLine()) != null) {
 				System.out.println();
 				String[] div = line.split(cvsSplitBy);
+				String[] div2 = div[2].split(splitBy);
 				// for (int i = 0; i < div.length; i++) {
 				System.out.print(div[2] + " ");
 				if (div[2].startsWith("RUA")) {
-					lista.add("teste","teste","teste");
-				//ListArray
+					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "RUA");                 //div2[0].replaceAll("\\s+"," "));
 				}
 				if (div[2].startsWith("AV")) {
-
+					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "AV");
 				}
-				if (div[2].startsWith("AV")) {
-
+				if (div[2].startsWith("BC")) {
+					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "BC");
 				}
-				if (div[2].startsWith("AV")) {
-
+				if (div[2].startsWith("PCA")) {
+					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "PCA");
 				}
 				// AV RUA BC PCA
 				// }
