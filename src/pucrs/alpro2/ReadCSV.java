@@ -17,17 +17,6 @@ public class ReadCSV {
 
 	}
 
-	public void lerTipo() throws IOException {
-		BufferedReader br2 = null;
-		String arq = "C:/Users/Gustavo Agnes/Documents/GitHub/turbo-octo-tribble/tipo.txt";
-		br2 = new BufferedReader(new FileReader(arq));
-		String linha = "";
-		while ((linha = br2.readLine()) != null) {
-			System.out.println("tst" + linha);
-		}
-		br2.close();
-	}
-
 	public void run() {
 
 		String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
