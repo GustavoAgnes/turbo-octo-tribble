@@ -9,71 +9,59 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ReadCSV {
-	
-	public ReadCSV() {
-	}
+
 	public static void main(String[] args) {
-		 
+
 		ReadCSV obj = new ReadCSV();
-		String nome = null;
-		obj.run(nome);
-	  }
-	public void run(String nomeArq) {
-		String csvFile = "H:/turbo-octo-tribble/"+nomeArq+".csv";
-		BufferedReader br = null;
+		obj.run();
+
+	}
+
+	public void lerTipo() throws IOException {
 		BufferedReader br2 = null;
-		int count=0;
+		String arq = "C:/Users/Gustavo Agnes/Documents/GitHub/turbo-octo-tribble/tipo.txt";
+		br2 = new BufferedReader(new FileReader(arq));
+		String linha = "";
+		while ((linha = br2.readLine()) != null) {
+			System.out.println("tst" + linha);
+		}
+		br2.close();
+	}
+
+	public void run() {
+
+		String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
+		BufferedReader br = null;
+		LinkedList lista = new LinkedList();
 		String line = "";
 		String cvsSplitBy = ";";
-	 
 		try {
-	 
+
 			br = new BufferedReader(new FileReader(csvFile));
-			br.skip(117);
+			//
+			System.out.println(br.readLine());
+			//
 			while ((line = br.readLine()) != null) {
-	 System.out.println();
-	String[] teste = line.split(cvsSplitBy);
-	//teste
-	File arquivo = new File("H:/turbo-octo-tribble/tipo.txt");
-	arquivo.createNewFile();
-	FileWriter fw = new FileWriter(arquivo);
-	BufferedWriter bw = new BufferedWriter(fw);
-	//String linha = br.readLine();
-	if(line.contains("RUA")){
-	//	System.out.println("rua");
-		count++;
-		bw.write("Rua");
-		bw.newLine();
-	}
-	if(line.contains("AV")){
-		count++;
-		bw.write("Avenida");
-		bw.newLine();
-	}
-	if(line.contains("ESTR")){
-		count++;
-		bw.write("Estrada");
-		bw.newLine();
-	}
-	if(line.contains("TV")){
-		count++;
-		bw.write("TV");
-		bw.newLine();
-	}
-	if(line.contains("PCA")){
-		count++;
-		bw.write("PCA");
-		bw.newLine();
-	}
-	System.out.println(count);
-	bw.close();
-	for(int i=0;i<teste.length;i++){
-		br2 = new BufferedReader(new FileReader(arquivo));
-		System.out.println(br2.readLine());
-		// System.out.print(teste[i]+" ");
-	 }
+				System.out.println();
+				String[] div = line.split(cvsSplitBy);
+				// for (int i = 0; i < div.length; i++) {
+				System.out.print(div[2] + " ");
+				if (div[2].startsWith("RUA")) {
+					lista.add("teste","teste","teste");
+				//ListArray
+				}
+				if (div[2].startsWith("AV")) {
+
+				}
+				if (div[2].startsWith("AV")) {
+
+				}
+				if (div[2].startsWith("AV")) {
+
+				}
+				// AV RUA BC PCA
+				// }
 			}
-	 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -86,9 +74,10 @@ public class ReadCSV {
 					e.printStackTrace();
 				}
 			}
+			System.out.println(lista.size());
+			System.out.println(lista.getTipo(200));
 		}
-	 
-		System.out.println("\nDone");
-	  }
-	 
+		System.out.println("Done");
 	}
+
+}
