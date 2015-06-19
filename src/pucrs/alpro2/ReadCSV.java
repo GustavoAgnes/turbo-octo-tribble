@@ -9,71 +9,47 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ReadCSV {
-	
-	public ReadCSV() {
-	}
+
 	public static void main(String[] args) {
-		 
+
 		ReadCSV obj = new ReadCSV();
-		String nome = null;
-		obj.run(nome);
-	  }
-	public void run(String nomeArq) {
-		String csvFile = "H:/turbo-octo-tribble/"+nomeArq+".csv";
+		obj.run();
+
+	}
+
+	public void run() {
+
+		String csvFile = "H:/turbo-octo-tribble-master/furtos.csv";
 		BufferedReader br = null;
-		BufferedReader br2 = null;
-		int count=0;
+		LinkedList lista = new LinkedList();
 		String line = "";
 		String cvsSplitBy = ";";
-	 
+		String splitBy = "\\.";
 		try {
-	 
+
 			br = new BufferedReader(new FileReader(csvFile));
-			br.skip(117);
+			//
+			// System.out.println(br.readLine());
+			//
 			while ((line = br.readLine()) != null) {
-	 System.out.println();
-	String[] teste = line.split(cvsSplitBy);
-	//teste
-	File arquivo = new File("H:/turbo-octo-tribble/tipo.txt");
-	arquivo.createNewFile();
-	FileWriter fw = new FileWriter(arquivo);
-	BufferedWriter bw = new BufferedWriter(fw);
-	//String linha = br.readLine();
-	if(line.contains("RUA")){
-	//	System.out.println("rua");
-		count++;
-		bw.write("Rua");
-		bw.newLine();
-	}
-	if(line.contains("AV")){
-		count++;
-		bw.write("Avenida");
-		bw.newLine();
-	}
-	if(line.contains("ESTR")){
-		count++;
-		bw.write("Estrada");
-		bw.newLine();
-	}
-	if(line.contains("TV")){
-		count++;
-		bw.write("TV");
-		bw.newLine();
-	}
-	if(line.contains("PCA")){
-		count++;
-		bw.write("PCA");
-		bw.newLine();
-	}
-	System.out.println(count);
-	bw.close();
-	for(int i=0;i<teste.length;i++){
-		br2 = new BufferedReader(new FileReader(arquivo));
-		System.out.println(br2.readLine());
-		// System.out.print(teste[i]+" ");
-	 }
+				// br.skip(117);
+				System.out.println(line);
+				String[] div = line.split(cvsSplitBy);
+				String[] div2 = div[2].split(splitBy);
+				// for (int i = 0; i < div.length; i++) {
+				// System.out.print(div[2] + " ");
+				// System.out.println(div2.length);
+				String[] prefixos = { "RUA", "AV", "BC", "PCA" };
+				for (String p : prefixos) {
+
+					if (div[2].startsWith(p)) {
+						lista.add("x", div[2].substring(p.length() + 1).trim(),
+								p); // div2[0].replaceAll("\\s+"," "));
+					}
+				}
+
 			}
-	 
+			// }
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -86,9 +62,12 @@ public class ReadCSV {
 					e.printStackTrace();
 				}
 			}
+			// System.out.println(lista.size());
+			// System.out.println(lista.getTipo(200));
 		}
-	 
-		System.out.println("\nDone");
-	  }
-	 
+		System.out.println("lista:");
+		System.out.println(lista);
+		System.out.println("Done");
 	}
+
+}
