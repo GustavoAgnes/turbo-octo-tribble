@@ -17,17 +17,6 @@ public class ReadCSV {
 
 	}
 
-	public void lerTipo() throws IOException {
-		BufferedReader br2 = null;
-		String arq = "C:/Users/Gustavo Agnes/Documents/GitHub/turbo-octo-tribble/tipo.txt";
-		br2 = new BufferedReader(new FileReader(arq));
-		String linha = "";
-		while ((linha = br2.readLine()) != null) {
-			System.out.println("tst" + linha);
-		}
-		br2.close();
-	}
-
 	public void run() {
 
 		String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
@@ -36,31 +25,17 @@ public class ReadCSV {
 		String line = "";
 		String cvsSplitBy = ";";
 		try {
-
 			br = new BufferedReader(new FileReader(csvFile));
-			//
-			System.out.println(br.readLine());
-			//
 			while ((line = br.readLine()) != null) {
-				System.out.println();
+				// Imprime tudo da linha
+				System.out.println(line);
 				String[] div = line.split(cvsSplitBy);
-				// for (int i = 0; i < div.length; i++) {
-				System.out.print(div[2] + " ");
-				if (div[2].startsWith("RUA")) {
-					lista.add("teste","teste","teste");
-				//ListArray
+				String[] prefixos = { "RUA", "AV", "BC", "PCA" };
+				for (String p : prefixos) {
+					if (div[2].startsWith(p)) {
+						lista.add(div[2].substring(p.length() + 1).trim(), p);
+					}
 				}
-				if (div[2].startsWith("AV")) {
-
-				}
-				if (div[2].startsWith("AV")) {
-
-				}
-				if (div[2].startsWith("AV")) {
-
-				}
-				// AV RUA BC PCA
-				// }
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -74,10 +49,9 @@ public class ReadCSV {
 					e.printStackTrace();
 				}
 			}
-			System.out.println(lista.size());
-			System.out.println(lista.getTipo(200));
 		}
+		System.out.println("lista:");
+		System.out.println(lista.getNome(0));
 		System.out.println("Done");
 	}
-
 }
