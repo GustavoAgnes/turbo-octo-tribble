@@ -36,12 +36,21 @@ public class LinkedList<E> {
 	private static class Node<E> {
 		public E nome;
 		public E tipo;
+<<<<<<< HEAD
 		public double coordX;
 		public double coordY;
 		public Node<E> next;
 		public Node<E> prev;
 
 		public Node(E name, E type, double cX, double cY) {
+=======
+		public String coordX;
+		public String coordY;
+		public Node<E> next;
+		public Node<E> prev;
+
+		public Node(E name, E type, String cX, String cY) {
+>>>>>>> f21521d6f0453a7c4a479d6fdcf4cb95e9d1f642
 			nome = name;
 			tipo = type;
 			coordX = cX;
@@ -58,9 +67,15 @@ public class LinkedList<E> {
 	 * Cria uma lista vazia.
 	 */
 	public LinkedList() {
+<<<<<<< HEAD
 		header = new Node<E>(null, null, 0, 0); // cria sentinela de
 														// início
 		trailer = new Node<E>(null, null, 0, 0);// cria sentinela de fim
+=======
+		header = new Node<E>(null, null, null, null); // cria sentinela de
+														// início
+		trailer = new Node<E>(null, null, null, null);// cria sentinela de fim
+>>>>>>> f21521d6f0453a7c4a479d6fdcf4cb95e9d1f642
 		header.next = trailer; // conecta sentinela de início no sentinela de
 								// fim
 		trailer.prev = header; // conecta sentinela de fim no sentinela de
@@ -96,6 +111,7 @@ public class LinkedList<E> {
 		return entry(index).tipo;
 	}
 
+<<<<<<< HEAD
 	public double getCoordX(int index) {
 		return entry(index).coordX;
 	}
@@ -105,6 +121,17 @@ public class LinkedList<E> {
 	}
 
 	public void add(E nome, E tipo, double coordX, double coordY) {
+=======
+	public String getCoordX(int index) {
+		return entry(index).coordX;
+	}
+
+	public String getCoordY(int index) {
+		return entry(index).coordY;
+	}
+
+	public void add(E nome, E tipo, String coordX, String coordY) {
+>>>>>>> f21521d6f0453a7c4a479d6fdcf4cb95e9d1f642
 		Node<E> n = new Node<E>(nome, tipo, coordX, coordY); // novo nodo que
 																// será
 																// adicionado à

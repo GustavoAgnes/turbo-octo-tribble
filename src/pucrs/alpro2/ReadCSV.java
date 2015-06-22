@@ -20,7 +20,11 @@ public class ReadCSV {
 
     public void run() {
         //String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
+<<<<<<< HEAD
         String csvFile = "H:/turbo-octo-tribble-master/furtos.csv";
+=======
+        String csvFile = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/furtos.csv";
+>>>>>>> f21521d6f0453a7c4a479d6fdcf4cb95e9d1f642
         BufferedReader br = null;
 
         String line = "";
