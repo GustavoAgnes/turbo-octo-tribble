@@ -10,105 +10,77 @@ import java.io.IOException;
 
 public class ReadCSV {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		ReadCSV obj = new ReadCSV();
-		obj.run();
+        ReadCSV obj = new ReadCSV();
+        obj.run();
 
-	}
+    }
+    LinkedList lista = new LinkedList();
 
-	public void run() {
+    public void run() {
+        //String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
+        String csvFile = "H:/turbo-octo-tribble-master/furtos.csv";
+        BufferedReader br = null;
 
-<<<<<<< HEAD
-		String csvFile = "H:/turbo-octo-tribble-master/furtos.csv";
-=======
-		String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
->>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
-		BufferedReader br = null;
-		LinkedList lista = new LinkedList();
-		String line = "";
-		String cvsSplitBy = ";";
-		String splitBy = "\\.";
-		try {
+        String line = "";
+        String cvsSplitBy = ";";
+        try {
+            br = new BufferedReader(new FileReader(csvFile));
+            while ((line = br.readLine()) != null) {
+				// Imprime tudo da linha
+                //System.out.println(line);
+                String[] div = line.split(cvsSplitBy);
+                String[] prefixos = {"RUA", "AV", "BC", "PCA"};
+                for (String p : prefixos) {
+                    if (div[2].startsWith(p)) {
+                        lista.add(div[2].substring(p.length() + 1).trim(), p, ParseDouble(div[11]), ParseDouble(div[12]));
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        //funcao adicionar ponto na outra classe(deve dar certo) -> -> -> ->
+        System.out.println("lista:");
+        System.out.println(lista.getNome(0));
+        System.out.println(lista.getTipo(0));
+        System.out.println(lista.getCoordX(0));
+        System.out.println(lista.getCoordY(0));
+        System.out.println("Done");
+    }
 
-			br = new BufferedReader(new FileReader(csvFile));
-			//
-<<<<<<< HEAD
-			// System.out.println(br.readLine());
-			//
-			while ((line = br.readLine()) != null) {
-				// br.skip(117);
-				System.out.println(line);
-				String[] div = line.split(cvsSplitBy);
-				String[] div2 = div[2].split(splitBy);
-				// for (int i = 0; i < div.length; i++) {
-				// System.out.print(div[2] + " ");
-				// System.out.println(div2.length);
-				String[] prefixos = { "RUA", "AV", "BC", "PCA" };
-				for (String p : prefixos) {
+    public double getCoordX(int index) {
+        return lista.getCoordX(index);
+    }
 
-					if (div[2].startsWith(p)) {
-						lista.add("x", div[2].substring(p.length() + 1).trim(),
-								p); // div2[0].replaceAll("\\s+"," "));
-					}
-				}
+    public double getCoordY(int index) {
+        return lista.getCoordY(index);
+    }
 
-			}
-			// }
-=======
-			System.out.println(br.readLine());
-			//
-			while ((line = br.readLine()) != null) {
-				br.skip(117);
-				System.out.println();
-				String[] div = line.split(cvsSplitBy);
-				String[] div2 = div[2].split(splitBy);
-				// for (int i = 0; i < div.length; i++) {
-				System.out.print(div[2] + " ");
-				if (div[2].startsWith("RUA")) {
-					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "RUA");                 //div2[0].replaceAll("\\s+"," "));
-				}
-				if (div[2].startsWith("AV")) {
-					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "AV");
-				}
-				if (div[2].startsWith("BC")) {
-					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "BC");
-				}
-				if (div[2].startsWith("PCA")) {
-					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "PCA");
-				}
-				// AV RUA BC PCA
-				// }
-			}
->>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-<<<<<<< HEAD
-			// System.out.println(lista.size());
-			// System.out.println(lista.getTipo(200));
-		}
-		System.out.println("lista:");
-		System.out.println(lista);
-		System.out.println("Done");
-	}
+    public int getSize() {
+        return lista.size();
+    }
 
+    double ParseDouble(String strNumber) {
+        if (strNumber != null && strNumber.length() > 0) {
+            try {
+                return Double.parseDouble(strNumber);
+            } catch (Exception e) {
+                return -1;
+            }
+        } else {
+            return 0;
+        }
+    }
 }
-=======
-			System.out.println(lista.size());
-			System.out.println(lista.getTipo(200));
-		}
-		System.out.println("Done");
-	}
-
-}
->>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
