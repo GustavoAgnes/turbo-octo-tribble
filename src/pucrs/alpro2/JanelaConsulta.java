@@ -68,13 +68,27 @@ public class JanelaConsulta extends javax.swing.JFrame {
     }
 
     private void consulta(java.awt.event.ActionEvent evt) {
-
         // Para obter o centro e o raio, usar como segue:
     	GeoPosition centro = gerenciador.getSelecaoCentro();
     	int raio = gerenciador.getRaio();        
 
         // Lista para armazenar o resultado da consulta
-        List<MyWaypoint> lstPoints = new ArrayList<>();
+        List<MyWaypoint> lstPoints = new ArrayList<>();  
+        
+        //testes
+        /*
+        ReadCSV rd = new ReadCSV();
+        rd.run();
+        System.out.println(rd.getCoordX(0));
+        System.out.println(rd.getCoordY(0));
+        */
+        //
+        ReadCSV rd = new ReadCSV();
+        rd.run();
+        
+        
+        
+        
         
         // Exemplo:
         
@@ -82,6 +96,11 @@ public class JanelaConsulta extends javax.swing.JFrame {
         GeoPosition loc = new GeoPosition(-30.05, -51.18); // ex: localização da parada
        // lstPoints.add(new MyWaypoint(Color.BLUE, valor, loc));         
         lstPoints.add(new MyWaypoint(Color.GREEN,valor, loc));
+       for(int i=0;i<rd.getSize();i++){
+    	   GeoPosition loc2 = new GeoPosition(Double.parseDouble(rd.getCoordX(i)), Double.parseDouble(rd.getCoordY(i)));
+    	   lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
+       }
+        /////////////////////////////// lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
 
         // Informa o resultado para o gerenciador
         gerenciador.setPontos(lstPoints);
@@ -91,7 +110,6 @@ public class JanelaConsulta extends javax.swing.JFrame {
         gerenciador.setIntervaloValores(menorValor, maiorValor);        
         
         this.repaint();
-
     }
     
     private class EventosMouse extends MouseAdapter

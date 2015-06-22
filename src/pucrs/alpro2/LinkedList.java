@@ -36,12 +36,16 @@ public class LinkedList<E> {
 	private static class Node<E> {
 		public E nome;
 		public E tipo;
+		public String coordX;
+		public String coordY;
 		public Node<E> next;
 		public Node<E> prev;
 
-		public Node(E name, E type) {
+		public Node(E name, E type, String cX, String cY) {
 			nome = name;
 			tipo = type;
+			coordX = cX;
+			coordY = cY;
 			prev = next = null;
 		}
 	}
@@ -54,8 +58,9 @@ public class LinkedList<E> {
 	 * Cria uma lista vazia.
 	 */
 	public LinkedList() {
-		header = new Node<E>(null, null); // cria sentinela de início
-		trailer = new Node<E>(null, null);// cria sentinela de fim
+		header = new Node<E>(null, null, null, null); // cria sentinela de
+														// início
+		trailer = new Node<E>(null, null, null, null);// cria sentinela de fim
 		header.next = trailer; // conecta sentinela de início no sentinela de
 								// fim
 		trailer.prev = header; // conecta sentinela de fim no sentinela de
@@ -81,6 +86,8 @@ public class LinkedList<E> {
 		return e;
 	}
 
+	//
+
 	public E getNome(int index) {
 		return entry(index).nome;
 	}
@@ -89,11 +96,19 @@ public class LinkedList<E> {
 		return entry(index).tipo;
 	}
 
-	//
+	public String getCoordX(int index) {
+		return entry(index).coordX;
+	}
 
-	public void add(E nome, E tipo) {
-		Node<E> n = new Node<E>(nome, tipo); // novo nodo que será adicionado à
-												// lista
+	public String getCoordY(int index) {
+		return entry(index).coordY;
+	}
+
+	public void add(E nome, E tipo, String coordX, String coordY) {
+		Node<E> n = new Node<E>(nome, tipo, coordX, coordY); // novo nodo que
+																// será
+																// adicionado à
+		// lista
 		Node<E> last = trailer.prev;// nodo anterior ao novo nodo, após a
 									// inserção
 
@@ -104,22 +119,16 @@ public class LinkedList<E> {
 		count++; // registra que a lista recebeu mais um nodo
 	}
 
-	public void add(int index, E nome, E tipo) {
-		if (index < 0 || index > count) {
-			throw new IndexOutOfBoundsException("Pos. invalida!");
-		}
-
-		// Node<E> aux = getNodeAt(index);
-		Node<E> n = new Node<E>(nome, tipo);
-		// Node<E> ant = aux.prev;
-
-		// n.next = aux;
-		// n.prev = ant;
-		// ant.next = n;
-		// aux.prev = n;
-		count++;
-	}
-
+	/*
+	 * public void add(int index, E nome, E tipo) { if (index < 0 || index >
+	 * count) { throw new IndexOutOfBoundsException("Pos. invalida!"); }
+	 * 
+	 * // Node<E> aux = getNodeAt(index); Node<E> n = new Node<E>(nome, tipo,
+	 * coordX, coordY); // Node<E> ant = aux.prev;
+	 * 
+	 * // n.next = aux; // n.prev = ant; // ant.next = n; // aux.prev = n;
+	 * count++; }
+	 */
 	public void clear() {
 		header.next = trailer; // conecta sentinela de início no sentinela de
 								// fim
@@ -136,34 +145,19 @@ public class LinkedList<E> {
 		return count;
 	}
 
-	public void addFirst(E e) {
-		add(0, e, null);
-	}
-
+	/*
+	 * public void addFirst(E e) { add(0, e, null); }
+	 */
 	public String toString() {
 		// ver
 		// http://www.docjar.com/html/api/java/util/AbstractCollection.java.html
 		String s = "{";
 		Node<E> aux = header.next;
 		if (aux != trailer) {
-<<<<<<< HEAD
-			s += "" + aux.tipo + ":" + aux.nome;
+			s += "" + aux.tipo + "." + aux.nome;
 			aux = aux.next;
 			while (aux != trailer) {
 				s += ", " + aux.tipo + ":" + aux.nome;
-=======
-<<<<<<< HEAD
-			s += "" + aux.tipo + ":" +aux.nome;
-			aux = aux.next;
-			while (aux != trailer) {
-				s += ", " + aux.tipo + ":" +aux.nome;
-=======
-			s += "" + aux.element;
-			aux = aux.next;
-			while (aux != trailer) {
-				s += ", " + aux.element;
->>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
->>>>>>> b4c74579e44656a1230a71519cc468b4f9ba36b7
 				aux = aux.next;
 			}
 		}

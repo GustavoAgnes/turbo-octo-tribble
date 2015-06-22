@@ -16,83 +16,26 @@ public class ReadCSV {
 		obj.run();
 
 	}
-
+	LinkedList lista = new LinkedList();
 	public void run() {
-
-<<<<<<< HEAD
-		String csvFile = "H:/turbo-octo-tribble-master/furtos.csv";
-=======
 		String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
->>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
 		BufferedReader br = null;
-		LinkedList lista = new LinkedList();
+		
 		String line = "";
 		String cvsSplitBy = ";";
-		String splitBy = "\\.";
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
-<<<<<<< HEAD
 			while ((line = br.readLine()) != null) {
 				// Imprime tudo da linha
-				System.out.println(line);
+				//System.out.println(line);
 				String[] div = line.split(cvsSplitBy);
 				String[] prefixos = { "RUA", "AV", "BC", "PCA" };
 				for (String p : prefixos) {
 					if (div[2].startsWith(p)) {
-						lista.add(div[2].substring(p.length() + 1).trim(), p);
+						lista.add(div[2].substring(p.length() + 1).trim(), p, div[11], div[12]);
 					}
 				}
-=======
-			//
-<<<<<<< HEAD
-			// System.out.println(br.readLine());
-			//
-			while ((line = br.readLine()) != null) {
-				// br.skip(117);
-				System.out.println(line);
-				String[] div = line.split(cvsSplitBy);
-				String[] div2 = div[2].split(splitBy);
-				// for (int i = 0; i < div.length; i++) {
-				// System.out.print(div[2] + " ");
-				// System.out.println(div2.length);
-				String[] prefixos = { "RUA", "AV", "BC", "PCA" };
-				for (String p : prefixos) {
-
-					if (div[2].startsWith(p)) {
-						lista.add("x", div[2].substring(p.length() + 1).trim(),
-								p); // div2[0].replaceAll("\\s+"," "));
-					}
-				}
-
 			}
-			// }
-=======
-			System.out.println(br.readLine());
-			//
-			while ((line = br.readLine()) != null) {
-				br.skip(117);
-				System.out.println();
-				String[] div = line.split(cvsSplitBy);
-				String[] div2 = div[2].split(splitBy);
-				// for (int i = 0; i < div.length; i++) {
-				System.out.print(div[2] + " ");
-				if (div[2].startsWith("RUA")) {
-					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "RUA");                 //div2[0].replaceAll("\\s+"," "));
-				}
-				if (div[2].startsWith("AV")) {
-					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "AV");
-				}
-				if (div[2].startsWith("BC")) {
-					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "BC");
-				}
-				if (div[2].startsWith("PCA")) {
-					lista.add(br.readLine(),div2[1].replaceAll("\\s+"," "), "PCA");
-				}
-				// AV RUA BC PCA
-				// }
->>>>>>> b4c74579e44656a1230a71519cc468b4f9ba36b7
-			}
->>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -105,31 +48,25 @@ public class ReadCSV {
 					e.printStackTrace();
 				}
 			}
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-			// System.out.println(lista.size());
-			// System.out.println(lista.getTipo(200));
 		}
-		System.out.println("lista:");
-		System.out.println(lista);
-		System.out.println("Done");
-	}
-
-}
-=======
-			System.out.println(lista.size());
-			System.out.println(lista.getTipo(200));
->>>>>>> b4c74579e44656a1230a71519cc468b4f9ba36b7
-		}
+		//funcao adicionar ponto na outra classe(deve dar certo) -> -> -> ->
 		System.out.println("lista:");
 		System.out.println(lista.getNome(0));
+		System.out.println(lista.getTipo(0));
+		System.out.println(lista.getCoordX(0));
+		System.out.println(lista.getCoordY(0));
 		System.out.println("Done");
 	}
-<<<<<<< HEAD
+	
+	public String getCoordX(int index){
+		return getCoordX(index);
+	}
+	
+	public String getCoordY(int index){
+		return lista.getCoordY(index);
+	}
+	
+	public int getSize(){
+		return lista.size();
+	}
 }
-=======
-
-}
->>>>>>> fa9d57a5751ba011f29be03e1f6cd21eb1c59009
->>>>>>> b4c74579e44656a1230a71519cc468b4f9ba36b7
