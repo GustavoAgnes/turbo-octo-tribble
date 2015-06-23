@@ -181,5 +181,4 @@ public class GerenciadorMapa {
     public JXMapKit getMapKit() {
         return jXMapKit;
     }
-
 }

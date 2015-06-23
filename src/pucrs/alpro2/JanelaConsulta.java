@@ -88,11 +88,24 @@ public class JanelaConsulta extends javax.swing.JFrame {
     private void consulta(java.awt.event.ActionEvent evt) {
         // Para obter o centro e o raio, usar como segue:
     	GeoPosition centro = gerenciador.getSelecaoCentro();
+<<<<<<< HEAD
     	//int raio = gerenciador.getRaio();        
 
+=======
+    	int raio = gerenciador.getRaio();    
+        System.out.println("RAIO = "+raio);
+        System.out.println("Centro?: "+gerenciador.getSelecaoCentro());
+        /*
+        if((-30.064064 - (-30.047364752836465))**2 + (-51.1946068 -(-51.18075370788574))**2 >= (raio**2)){
+            System.out.println("Dentro do circulo/exemplo/Rua Guilherme Alves");
+        }
+        //-30.0490475;-51.1836586
+        */ // não funcionando
+      
+        //
+>>>>>>> 0ee5e547cf199f4979c9d600c4d127515b5441dd
         // Lista para armazenar o resultado da consulta
         List<MyWaypoint> lstPoints = new ArrayList<>();  
-        
         //testes
         /*
         ReadCSV rd = new ReadCSV();
@@ -103,17 +116,13 @@ public class JanelaConsulta extends javax.swing.JFrame {
         //
         ReadCSV rd = new ReadCSV();
         rd.run();
-        
-        
-        
-        
-        
+
         // Exemplo:
-        
         double valor = 250; // ex: valor da consulta (criminalidade ou distância)
         GeoPosition loc = new GeoPosition(-30.05, -51.18); // ex: localização da parada
        // lstPoints.add(new MyWaypoint(Color.BLUE, valor, loc));         
         lstPoints.add(new MyWaypoint(Color.GREEN,valor, loc));
+<<<<<<< HEAD
         for(int i=0;i<rd.getSize();i++){
      	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
      	   lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
@@ -129,6 +138,12 @@ public class JanelaConsulta extends javax.swing.JFrame {
 
         /////////////////////////////// lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
 
+=======
+       for(int i=0;i<rd.getSize();i++){
+    	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
+    	   lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
+       }
+>>>>>>> 0ee5e547cf199f4979c9d600c4d127515b5441dd
         // Informa o resultado para o gerenciador
         gerenciador.setPontos(lstPoints);
         // Informa o intervalo de valores gerados, para calcular a cor de cada ponto
