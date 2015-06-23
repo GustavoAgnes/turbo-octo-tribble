@@ -33,7 +33,7 @@ public class JanelaConsulta extends javax.swing.JFrame {
     private JPanel painelMapa;
     private JPanel painelLateral;
     pucrs.alpro2.algoritmos.AlgoritmosGeograficos  Ag = new pucrs.alpro2.algoritmos.AlgoritmosGeograficos();
-
+    
     /**
      * Creates new form JanelaConsulta
      */
@@ -84,8 +84,7 @@ public class JanelaConsulta extends javax.swing.JFrame {
         List<MyWaypoint> lstPoints = new ArrayList<>();  
         //testes
         /*
-        ReadCSV rd = new ReadCSV();
-        rd.run();
+        
         System.out.println(rd.getCoordX(0));
         System.out.println(rd.getCoordY(0));
         */
@@ -99,30 +98,29 @@ public class JanelaConsulta extends javax.swing.JFrame {
        // lstPoints.add(new MyWaypoint(Color.BLUE, valor, loc));         
         lstPoints.add(new MyWaypoint(Color.GREEN,valor, loc));
        for(int i=0;i<rd.getSize();i++){
-    	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
-    	   lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
-           GeoPosition ponto1 = new GeoPosition(gerenciador.getSelecaoCentro().getLatitude(),gerenciador.getSelecaoCentro().getLongitude());
-           GeoPosition ponto2 = new GeoPosition(rd.getCoordX(i),rd.getCoordY(i));
-           
-           
-           
-           
-           
-           
-           //teste
     double lat_a = rd.getCoordX(i);
     double lng_a = rd.getCoordY(i);
     double lat_b = gerenciador.getSelecaoCentro().getLatitude();
     double lng_b = gerenciador.getSelecaoCentro().getLongitude();
  
+    	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
+    	   //lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
+           
+           
+           if(gps2m(lat_a, lng_a, lat_b, lng_b)< gerenciador.getRaio()){
+           //System.out.println(gps2m(lat_a, lng_a, lat_b, lng_b));
+               lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
+       }
+           
+           
+           
+           //teste
+    
+ 
     // 
            //if(Ag.calcDistancia(ponto1,ponto2)>gerenciador.getRaio()){
            //System.out.println("Distancia: "+ Ag.calcDistancia(ponto1,ponto2));
            //System.out.println("Raio: "+Math.toRadians(gerenciador.getRaio()));
-    if(gps2m(lat_a, lng_a, lat_b, lng_b)< gerenciador.getRaio()){
-           System.out.println(gps2m(lat_a, lng_a, lat_b, lng_b));
-           System.out.println("Dentro");
-       }
        }
         // Informa o resultado para o gerenciador
         gerenciador.setPontos(lstPoints);
