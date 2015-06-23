@@ -113,7 +113,7 @@ public class GerenciadorMapa {
                 int raio = (int) Math.sqrt(Math.pow(point.getX()-pont2.getX(),2)+
                 		Math.pow(point.getY()-pont2.getY(),2));
                 int r = raio/2;
-            	g.setColor(Color.RED);
+            	g.setColor(Color.BLUE); // mudar cor
             	g.setStroke(new BasicStroke(2));
             	g.draw(new Ellipse2D.Float(x-r, y-r, raio, raio));
             	g.drawString(getRaio()+" metros", x+r, y+r);
@@ -155,12 +155,12 @@ public class GerenciadorMapa {
     // Retorna o raio da região selecionada (em metros)
     public int getRaio() {    
     	return (int) (AlgoritmosGeograficos.calcDistancia(selBorda, selCentro)*500);
-    }   
+    }    
     
     public void setIntervaloValores(double valMenor, double valMaior) {
     	this.valorMenor = valMenor;
 		this.valorMaior = valMaior;
-		System.out.println(valMenor+"->"+valMaior);
+		//System.out.println(valMenor+"->"+valMaior);
 	}    
     
     /*
@@ -173,7 +173,7 @@ public class GerenciadorMapa {
         // Informando o conjunto ao painter
         pontosPainter.setWaypoints(pontos);
     }
-    
+
     /*
      * Retorna a referência ao objeto JXMapKit, para ajuste de parâmetros (se for o caso)
      * @returns referência para objeto JXMapKit em uso
