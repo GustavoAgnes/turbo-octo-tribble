@@ -72,31 +72,23 @@ public class JanelaConsulta extends javax.swing.JFrame {
         // Para obter o centro e o raio, usar como segue:
     	GeoPosition centro = gerenciador.getSelecaoCentro();
     	int raio = gerenciador.getRaio();    
-        /*
-        if((-30.064064 - (-30.047364752836465))**2 + (-51.1946068 -(-51.18075370788574))**2 >= (raio**2)){
-            System.out.println("Dentro do circulo/exemplo/Rua Guilherme Alves");
-        }
-        //-30.0490475;-51.1836586
-        */ // não funcionando
-      
-        //
         // Lista para armazenar o resultado da consulta
         List<MyWaypoint> lstPoints = new ArrayList<>();  
-        //testes
-        /*
-        
-        System.out.println(rd.getCoordX(0));
-        System.out.println(rd.getCoordY(0));
-        */
-        //
         ReadCSV rd = new ReadCSV();
         rd.run();
 
         // Exemplo:
         double valor = 250; // ex: valor da consulta (criminalidade ou distância)
-        GeoPosition loc = new GeoPosition(-30.05, -51.18); // ex: localização da parada
-       // lstPoints.add(new MyWaypoint(Color.BLUE, valor, loc));         
-        lstPoints.add(new MyWaypoint(Color.GREEN,valor, loc));
+        for(int i=0;i<rd.getSizeParadas();i++){
+    double lat2_a = rd.getLatParada(i);
+    double lng2_a = rd.getLngParada(i);
+    double lat_b = gerenciador.getSelecaoCentro().getLatitude();
+    double lng_b = gerenciador.getSelecaoCentro().getLongitude();
+            GeoPosition loc3 = new GeoPosition(rd.getLatParada(i), rd.getLngParada(i));
+            if(gps2m(lat2_a, lng2_a, lat_b, lng_b)< gerenciador.getRaio()){
+            lstPoints.add(new MyWaypoint(Color.BLACK,valor,loc3));
+            }
+        }
        for(int i=0;i<rd.getSize();i++){
     double lat_a = rd.getCoordX(i);
     double lng_a = rd.getCoordY(i);
@@ -104,23 +96,9 @@ public class JanelaConsulta extends javax.swing.JFrame {
     double lng_b = gerenciador.getSelecaoCentro().getLongitude();
  
     	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
-    	   //lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
-           
-           
            if(gps2m(lat_a, lng_a, lat_b, lng_b)< gerenciador.getRaio()){
-           //System.out.println(gps2m(lat_a, lng_a, lat_b, lng_b));
-               lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
+               lstPoints.add(new MyWaypoint(Color.RED,valor, loc2));
        }
-           
-           
-           
-           //teste
-    
- 
-    // 
-           //if(Ag.calcDistancia(ponto1,ponto2)>gerenciador.getRaio()){
-           //System.out.println("Distancia: "+ Ag.calcDistancia(ponto1,ponto2));
-           //System.out.println("Raio: "+Math.toRadians(gerenciador.getRaio()));
        }
         // Informa o resultado para o gerenciador
         gerenciador.setPontos(lstPoints);
@@ -128,11 +106,8 @@ public class JanelaConsulta extends javax.swing.JFrame {
         double menorValor = 15;  // exemplo
         double maiorValor = 250; // exemplo
         gerenciador.setIntervaloValores(menorValor, maiorValor);        
-        
         this.repaint();
     }
-    
-    
        private double gps2m(double lat_a, double lng_a, double lat_b, double lng_b) {
     float pk = (float) (180/3.14169);
 
@@ -148,10 +123,6 @@ public class JanelaConsulta extends javax.swing.JFrame {
 
     return 6366000*tt;
 }
-    
-    
-    
-    
     
     private class EventosMouse extends MouseAdapter
     {
