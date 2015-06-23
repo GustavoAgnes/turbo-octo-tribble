@@ -17,7 +17,9 @@ import javax.swing.JPanel;
 
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.GeoPosition;
+
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -32,7 +34,22 @@ public class JanelaConsulta extends javax.swing.JFrame {
     
     private JPanel painelMapa;
     private JPanel painelLateral;
+    pucrs.alpro2.algoritmos.AlgoritmosGeograficos Ag = new pucrs.alpro2.algoritmos.AlgoritmosGeograficos();
+    
+	//testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+	private double GreatCircleDistanceInMeters(double aLong1,double aLat1,double aLong2,double aLat2)
+    {
+    double cos_angle = Math.sin(aLat1) * Math.sin(aLat2) + Math.cos(aLat1) * Math.cos(aLat2) * Math.cos(aLong2 - aLong1);
+    if (cos_angle >= 1)
+        return 0;
 
+    double angle = Math.acos(cos_angle);
+    return angle * 6378137;
+    }
+	//
+	
+    
+    
     /**
      * Creates new form JanelaConsulta
      */
@@ -45,6 +62,7 @@ public class JanelaConsulta extends javax.swing.JFrame {
         mouse = new EventosMouse();        		
         gerenciador.getMapKit().getMainMap().addMouseListener(mouse);
         gerenciador.getMapKit().getMainMap().addMouseMotionListener(mouse);       
+        
 
         painelMapa = new JPanel();
         painelMapa.setLayout(new BorderLayout());
@@ -70,7 +88,7 @@ public class JanelaConsulta extends javax.swing.JFrame {
     private void consulta(java.awt.event.ActionEvent evt) {
         // Para obter o centro e o raio, usar como segue:
     	GeoPosition centro = gerenciador.getSelecaoCentro();
-    	int raio = gerenciador.getRaio();        
+    	//int raio = gerenciador.getRaio();        
 
         // Lista para armazenar o resultado da consulta
         List<MyWaypoint> lstPoints = new ArrayList<>();  
@@ -96,10 +114,19 @@ public class JanelaConsulta extends javax.swing.JFrame {
         GeoPosition loc = new GeoPosition(-30.05, -51.18); // ex: localização da parada
        // lstPoints.add(new MyWaypoint(Color.BLUE, valor, loc));         
         lstPoints.add(new MyWaypoint(Color.GREEN,valor, loc));
-       for(int i=0;i<rd.getSize();i++){
-    	   GeoPosition loc2 = new GeoPosition(Double.parseDouble(rd.getCoordX(i)), Double.parseDouble(rd.getCoordY(i)));
-    	   lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
-       }
+        for(int i=0;i<rd.getSize();i++){
+     	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
+     	   lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
+     	   double x1 = rd.getCoordX(i);
+     	   double xC = gerenciador.getSelecaoCentro().getLatitude();
+     	   double x2 = rd.getCoordY(i);
+     	   double yC = gerenciador.getSelecaoCentro().getLongitude();
+     	   GeoPosition ponto1 = new GeoPosition(x1,x2);
+     	   GeoPosition ponto2 = new GeoPosition(xC,yC);
+     	  // System.out.println("Distancia entre os pontos: "+Ag.calcDistancia(ponto1, ponto2));
+     	//  System.out.println("Raio em radianos: "+Math.toRadians(gerenciador.getRaio()));
+        }
+
         /////////////////////////////// lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
 
         // Informa o resultado para o gerenciador
@@ -129,8 +156,9 @@ public class JanelaConsulta extends javax.swing.JFrame {
     			//gerenciador.getMapKit().setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
     			gerenciador.getMapKit().repaint();    			
     		}
-    	}    
+    	}
     	
+
     	public void mouseDragged(MouseEvent e) {
     		// Arrasta com o botão 3 para definir o raio
     		if(lastButton ==  MouseEvent.BUTTON3) {    			

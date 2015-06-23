@@ -155,7 +155,7 @@ public class GerenciadorMapa {
     // Retorna o raio da região selecionada (em metros)
     public int getRaio() {    
     	return (int) (AlgoritmosGeograficos.calcDistancia(selBorda, selCentro)*500);
-    }    
+    }   
     
     public void setIntervaloValores(double valMenor, double valMaior) {
     	this.valorMenor = valMenor;
@@ -173,7 +173,7 @@ public class GerenciadorMapa {
         // Informando o conjunto ao painter
         pontosPainter.setWaypoints(pontos);
     }
-
+    
     /*
      * Retorna a referência ao objeto JXMapKit, para ajuste de parâmetros (se for o caso)
      * @returns referência para objeto JXMapKit em uso

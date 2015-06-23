@@ -36,12 +36,12 @@ public class LinkedList<E> {
 	private static class Node<E> {
 		public E nome;
 		public E tipo;
-		public String coordX;
-		public String coordY;
+		public double coordX;
+		public double coordY;
 		public Node<E> next;
 		public Node<E> prev;
 
-		public Node(E name, E type, String cX, String cY) {
+		public Node(E name, E type, double cX, double cY) {
 			nome = name;
 			tipo = type;
 			coordX = cX;
@@ -58,115 +58,114 @@ public class LinkedList<E> {
 	 * Cria uma lista vazia.
 	 */
 	public LinkedList() {
-		header = new Node<E>(null, null, null, null); // cria sentinela de
-														// início
-		trailer = new Node<E>(null, null, null, null);// cria sentinela de fim
-		header.next = trailer; // conecta sentinela de início no sentinela de
-								// fim
-		trailer.prev = header; // conecta sentinela de fim no sentinela de
-								// início
-		count = 0; // indica que a lista está vazia
-	}
+		header = new Node<E>(null, null, 0, 0); // cria sentinela de
+		// inï¿½cio
+trailer = new Node<E>(null, null, 0, 0);// cria sentinela de fim
+header.next = trailer; // conecta sentinela de inï¿½cio no sentinela de
+// fim
+trailer.prev = header; // conecta sentinela de fim no sentinela de
+// inï¿½cio
+count = 0; // indica que a lista estï¿½ vazia
+}
 
-	// CÓDIGO ORACLE
-	private Node<E> entry(int index) {
-		if (index < 0 || index >= count)
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
-					+ count);
-		Node e;
-		if (index < (count >> 1)) {
-			e = header.next;
-			for (int i = 0; i <= index; i++)
-				e = e.next;
-		} else {
-			e = trailer.prev;
-			for (int i = count; i > index; i--)
-				e = e.prev;
-		}
-		return e;
-	}
+// Cï¿½DIGO ORACLE
+private Node<E> entry(int index) {
+if (index < 0 || index >= count)
+throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
++ count);
+Node e;
+if (index < (count >> 1)) {
+e = header.next;
+for (int i = 0; i <= index; i++)
+e = e.next;
+} else {
+e = trailer.prev;
+for (int i = count; i > index; i--)
+e = e.prev;
+}
+return e;
+}
 
-	//
+//
 
-	public E getNome(int index) {
-		return entry(index).nome;
-	}
+public E getNome(int index) {
+return entry(index).nome;
+}
 
-	public E getTipo(int index) {
-		return entry(index).tipo;
-	}
+public E getTipo(int index) {
+return entry(index).tipo;
+}
 
-	public String getCoordX(int index) {
-		return entry(index).coordX;
-	}
+public double getCoordX(int index) {
+return entry(index).coordX;
+}
 
-	public String getCoordY(int index) {
-		return entry(index).coordY;
-	}
+public double getCoordY(int index) {
+return entry(index).coordY;
+}
 
-	public void add(E nome, E tipo, String coordX, String coordY) {
-		Node<E> n = new Node<E>(nome, tipo, coordX, coordY); // novo nodo que
-																// será
-																// adicionado à
-		// lista
-		Node<E> last = trailer.prev;// nodo anterior ao novo nodo, após a
-									// inserção
+public void add(E nome, E tipo, double coordX, double coordY) {
+Node<E> n = new Node<E>(nome, tipo, coordX, coordY); // novo nodo que
+								// serï¿½
+								// adicionado ï¿½
+// lista
+Node<E> last = trailer.prev;// nodo anterior ao novo nodo, apï¿½s a
+	// inserï¿½ï¿½o
 
-		n.prev = last; // conecta o novo com o atual último elemento
-		n.next = trailer; // conecta o novo com o sentinela de fim
-		last.next = n; // conecta o último elemento atual com o novo
-		trailer.prev = n; // conecta o sentinela de fim com o novo
-		count++; // registra que a lista recebeu mais um nodo
-	}
+n.prev = last; // conecta o novo com o atual ï¿½ltimo elemento
+n.next = trailer; // conecta o novo com o sentinela de fim
+last.next = n; // conecta o ï¿½ltimo elemento atual com o novo
+trailer.prev = n; // conecta o sentinela de fim com o novo
+count++; // registra que a lista recebeu mais um nodo
+}
 
-	/*
-	 * public void add(int index, E nome, E tipo) { if (index < 0 || index >
-	 * count) { throw new IndexOutOfBoundsException("Pos. invalida!"); }
-	 * 
-	 * // Node<E> aux = getNodeAt(index); Node<E> n = new Node<E>(nome, tipo,
-	 * coordX, coordY); // Node<E> ant = aux.prev;
-	 * 
-	 * // n.next = aux; // n.prev = ant; // ant.next = n; // aux.prev = n;
-	 * count++; }
-	 */
-	public void clear() {
-		header.next = trailer; // conecta sentinela de início no sentinela de
-								// fim
-		trailer.prev = header; // conecta sentinela de fim no sentinela de
-								// início
-		count = 0; // indica que a lista está vazia
-	}
+/*
+* public void add(int index, E nome, E tipo) { if (index < 0 || index >
+* count) { throw new IndexOutOfBoundsException("Pos. invalida!"); }
+* 
+* // Node<E> aux = getNodeAt(index); Node<E> n = new Node<E>(nome, tipo,
+* coordX, coordY); // Node<E> ant = aux.prev;
+* 
+* // n.next = aux; // n.prev = ant; // ant.next = n; // aux.prev = n;
+* count++; }
+*/
+public void clear() {
+header.next = trailer; // conecta sentinela de inï¿½cio no sentinela de
+// fim
+trailer.prev = header; // conecta sentinela de fim no sentinela de
+// inï¿½cio
+count = 0; // indica que a lista estï¿½ vazia
+}
 
-	public boolean isEmpty() {
-		return count == 0;
-	}
+public boolean isEmpty() {
+return count == 0;
+}
 
-	public int size() {
-		return count;
-	}
+public int size() {
+return count;
+}
 
-	/*
-	 * public void addFirst(E e) { add(0, e, null); }
-	 */
-	public String toString() {
-		// ver
-		// http://www.docjar.com/html/api/java/util/AbstractCollection.java.html
-		String s = "{";
-		Node<E> aux = header.next;
-		if (aux != trailer) {
-			s += "" + aux.tipo + "." + aux.nome;
-			aux = aux.next;
-			while (aux != trailer) {
-				s += ", " + aux.tipo + ":" + aux.nome;
-				aux = aux.next;
-			}
-		}
-		s += "}";
-		return s;
-	}
+/*
+* public void addFirst(E e) { add(0, e, null); }
+*/
+public String toString() {
+// ver
+// http://www.docjar.com/html/api/java/util/AbstractCollection.java.html
+String s = "{";
+Node<E> aux = header.next;
+if (aux != trailer) {
+s += "" + aux.tipo + "." + aux.nome;
+aux = aux.next;
+while (aux != trailer) {
+s += ", " + aux.tipo + ":" + aux.nome;
+aux = aux.next;
+}
+}
+s += "}";
+return s;
+}
 
-	public Iterator<E> iterator() {
-		return new DoubleLinkedIterator();
-	}
-
+public Iterator<E> iterator() {
+return new DoubleLinkedIterator();
+}
 }
