@@ -32,12 +32,6 @@ public class JanelaConsulta extends javax.swing.JFrame {
     
     private JPanel painelMapa;
     private JPanel painelLateral;
-<<<<<<< HEAD
-    int nOcorr;
-    int valor;
-    int count=0;
-=======
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e
     pucrs.alpro2.algoritmos.AlgoritmosGeograficos  Ag = new pucrs.alpro2.algoritmos.AlgoritmosGeograficos();
     
     /**
@@ -79,123 +73,51 @@ public class JanelaConsulta extends javax.swing.JFrame {
     	GeoPosition centro = gerenciador.getSelecaoCentro();
     	int raio = gerenciador.getRaio();    
         // Lista para armazenar o resultado da consulta
-<<<<<<< HEAD
-        List<MyWaypoint> lstPoints = new ArrayList<>();
-        List<MyWaypoint> lstFurtos = new ArrayList<>();
-        List<MyWaypoint> lstParadas = new ArrayList<>();
-=======
         List<MyWaypoint> lstPoints = new ArrayList<>();  
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e
         ReadCSV rd = new ReadCSV();
         rd.run();
 
         // Exemplo:
-<<<<<<< HEAD
-        
-        for(int i=0;i<rd.getSizeParadas();i++){ // adicionando paradas
-=======
         double valor = 250; // ex: valor da consulta (criminalidade ou distÃ¢ncia)
         for(int i=0;i<rd.getSizeParadas();i++){
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e
     double lat2_a = rd.getLatParada(i);
     double lng2_a = rd.getLngParada(i);
     double lat_b = gerenciador.getSelecaoCentro().getLatitude();
     double lng_b = gerenciador.getSelecaoCentro().getLongitude();
-<<<<<<< HEAD
-    if(numOcorr(lat2_a, lng2_a, lat_b, lng_b)>200){     //Atualmente não faz sentido pois a cor do proprio furto muda e não a cor da parada, alterar!
+    
+     if(numOcorr(lat2_a, lng2_a, lat_b, lng_b)>200){
     	valor = 200;
     }
     else{
-    valor = numOcorr(lat2_a, lng2_a, lat_b, lng_b); // ex: valor da consulta (criminalidade ou distância)
+    valor = 250; // ex: valor da consulta (criminalidade ou distï¿½ncia)
     }
     
-    
-            GeoPosition loc3 = new GeoPosition(rd.getLatParada(i), rd.getLngParada(i));
-            if(gps2m(lat2_a, lng2_a, lat_b, lng_b)< gerenciador.getRaio()){
-            	System.out.println("Valor: "+valor);
-            lstParadas.add(new MyWaypoint(Color.GREEN,200,loc3));
-            }
-        }
-       for(int i=0;i<rd.getSize();i++){     // adicionando furtos
-=======
             GeoPosition loc3 = new GeoPosition(rd.getLatParada(i), rd.getLngParada(i));
             if(gps2m(lat2_a, lng2_a, lat_b, lng_b)< gerenciador.getRaio()){
             lstPoints.add(new MyWaypoint(Color.BLACK,valor,loc3));
             }
         }
        for(int i=0;i<rd.getSize();i++){
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e
     double lat_a = rd.getCoordX(i);
     double lng_a = rd.getCoordY(i);
     double lat_b = gerenciador.getSelecaoCentro().getLatitude();
     double lng_b = gerenciador.getSelecaoCentro().getLongitude();
- 
-<<<<<<< HEAD
-    
-    
-   // System.out.println(numOcorr(lat_a, lng_a, lat_b, lng_b)); /////////////
-    
-    
-    
-    
+     System.out.println(prox(lat_a,lng_a,lat_b,lng_b));
     	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
            if(gps2m(lat_a, lng_a, lat_b, lng_b)< gerenciador.getRaio()){
-               lstFurtos.add(new MyWaypoint(Color.RED,200, loc2));
-=======
-    	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
-           if(gps2m(lat_a, lng_a, lat_b, lng_b)< gerenciador.getRaio()){
+               //System.out.println(numOcorr(lat_a, lng_a, lat_b, lng_b));
                lstPoints.add(new MyWaypoint(Color.RED,valor, loc2));
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e
        }
        }
         // Informa o resultado para o gerenciador
-       lstPoints.addAll(lstParadas);
-       lstPoints.addAll(lstFurtos);
-       gerenciador.setPontos(lstPoints);
+        gerenciador.setPontos(lstPoints);
         // Informa o intervalo de valores gerados, para calcular a cor de cada ponto
-<<<<<<< HEAD
-        double menorValor = 1;  // exemplo
-        double maiorValor = 200; // exemplo
-        gerenciador.setIntervaloValores(menorValor, maiorValor);    
-       
-        this.repaint();
-    }
-    /*
-    private int numOcorr(){
-    	ReadCSV rd = new ReadCSV();
-    	rd.run();
-    	int count=0;
-    	for(int i=0; i< rd.getSize();i++){
-    		double lat_a = rd.getCoordX(i);
-		    double lng_a = rd.getCoordY(i);
-		    double lat_b = gerenciador.getSelecaoCentro().getLatitude();
-		    double lng_b = gerenciador.getSelecaoCentro().getLongitude();
-		    
-    		if(gps2m(lat_a, lng_a, lat_b, lng_b)< 1500){
-    			count++;
-    			System.out.println(count);
-    		}
-    	}
-    	return count;
-    }
-    */
-    private int numOcorr(double lat_a,double lng_a,double lat_b,double lng_b){
-//    	
-    	if(gps2m(lat_a, lng_a, lat_b, lng_b)< 1500){
-    			count++;
-    		}
-    	return count;
-    }
-    //for(int i=0;i<rd.g)
-      private double gps2m(double lat_a, double lng_a, double lat_b, double lng_b) {
-=======
         double menorValor = 15;  // exemplo
         double maiorValor = 250; // exemplo
         gerenciador.setIntervaloValores(menorValor, maiorValor);        
         this.repaint();
     }
-       private double gps2m(double lat_a, double lng_a, double lat_b, double lng_b) {
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e
+    public double gps2m(double lat_a, double lng_a, double lat_b, double lng_b) {
     float pk = (float) (180/3.14169);
 
     double a1 = lat_a / pk;
@@ -210,6 +132,36 @@ public class JanelaConsulta extends javax.swing.JFrame {
 
     return 6366000*tt;
 }
+int count = 0;
+    private int numOcorr(double lat_a,double lng_a,double lat_b,double lng_b){  
+        if(gps2m(lat_a, lng_a, lat_b, lng_b)< 1500){
+    			count++;
+    		}
+    	return count;
+    }
+    
+    double srefDistance = 0.0;
+    private double prox(double lat_a, double lng_a, double lat_b, double lng_b){
+    GeoPosition ponto1 = new GeoPosition(lat_a, lng_a);
+    GeoPosition ponto2 = new GeoPosition(lat_b, lng_b);
+    
+     
+    double distance = Ag.calcDistancia(ponto1,ponto2);    
+    if (srefDistance == 0.0) {
+        System.out.println(srefDistance);
+        srefDistance = distance;
+        if (distance < srefDistance) {
+            System.out.println(distance);
+            srefDistance = distance;
+        }
+    } else {
+        if (distance < srefDistance) {
+            System.out.println(distance);
+            srefDistance = distance;
+        }
+    }
+    return distance;
+    }
     
     private class EventosMouse extends MouseAdapter
     {
@@ -221,7 +173,7 @@ public class JanelaConsulta extends javax.swing.JFrame {
     		GeoPosition loc = mapa.convertPointToGeoPosition(e.getPoint());
 //    		System.out.println(loc.getLatitude()+", "+loc.getLongitude());
     		lastButton = e.getButton();
-    		// Botão 3: seleciona localização
+    		// BotÃ£o 3: seleciona localizaÃ§Ã£o
     		if(lastButton==MouseEvent.BUTTON3) {  			
     			gerenciador.setSelecaoCentro(loc);
     			gerenciador.setSelecaoBorda(loc);
@@ -229,9 +181,10 @@ public class JanelaConsulta extends javax.swing.JFrame {
     			gerenciador.getMapKit().repaint();    			
     		}
     	}    
+        
     	
     	public void mouseDragged(MouseEvent e) {
-    		// Arrasta com o botão 3 para definir o raio
+    		// Arrasta com o botÃ£o 3 para definir o raio
     		if(lastButton ==  MouseEvent.BUTTON3) {    			
     			JXMapViewer mapa = gerenciador.getMapKit().getMainMap();
     			gerenciador.setSelecaoBorda(mapa.convertPointToGeoPosition(e.getPoint()));
