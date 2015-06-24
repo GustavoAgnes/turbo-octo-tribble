@@ -15,84 +15,24 @@ public class ReadCSV {
         ReadCSV obj = new ReadCSV();
         obj.run();
 
-<<<<<<< HEAD
-	}
-
-	LinkedList lista = new LinkedList();
-
-	public void run() {
-		String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
-		BufferedReader br = null;
-
-		String line = "";
-		String cvsSplitBy = ";";
-		try {
-			br = new BufferedReader(new FileReader(csvFile));
-			while ((line = br.readLine()) != null) {
-				// Imprime tudo da linha
-				// System.out.println(line);
-				String[] div = line.split(cvsSplitBy);
-				String[] prefixos = { "RUA", "AV", "BC", "PCA" };
-				for (String p : prefixos) {
-					if (div[2].startsWith(p)) {
-						lista.add(div[2].substring(p.length() + 1).trim(), p,
-								ParseDouble(div[11]), ParseDouble(div[12]));
-					}
-				}
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		// funcao adicionar ponto na outra classe(deve dar certo) -> -> -> ->
-	//	System.out.println("lista:");
-	//	System.out.println(lista.getNome(0));
-	//	System.out.println(lista.getTipo(0));
-	//	System.out.println(lista.getCoordX(0));
-	//	System.out.println(lista.getCoordY(0));
-	//	System.out.println("Done");
-	}
-
-	public double getCoordX(int index) {
-		return lista.getCoordX(index);
-	}
-
-	public double getCoordY(int index) {
-		return lista.getCoordY(index);
-	}
-	
-
-	public int getSize() {
-		return lista.size();
-	}
-	
-	double ParseDouble(String strNumber) {
-=======
     }
     LinkedList lista = new LinkedList();
+    LinkedList listaParadas = new LinkedList();
 
     public void run() {
-        //String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
-<<<<<<< HEAD
-        String csvFile = "H:/turbo-octo-tribble-master/furtos.csv";
-=======
-        String csvFile = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/furtos.csv";
->>>>>>> f21521d6f0453a7c4a479d6fdcf4cb95e9d1f642
+        String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
+        //String csvFile = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/furtos.csv";
+        String paradas = "C:/Users/GustavoPC/turbo-octo-tribble/taxis.csv";
         BufferedReader br = null;
-
+        BufferedReader br2 = null;
         String line = "";
+        String line2 = "";
         String cvsSplitBy = ";";
         try {
             br = new BufferedReader(new FileReader(csvFile));
+            //
+            br2 = new BufferedReader(new FileReader(paradas));
+            //
             while ((line = br.readLine()) != null) {
 				// Imprime tudo da linha
                 //System.out.println(line);
@@ -104,11 +44,19 @@ public class ReadCSV {
                     }
                 }
             }
+            while ((line2 = br2.readLine())!=null){
+                String[] div2 = line2.split(cvsSplitBy);
+                listaParadas.add(div2[1], div2[2], ParseDouble(div2[3]), ParseDouble(div2[4]));
+                //System.out.println(div2[3]);
+                //System.out.println(div2[4]);
+                //System.out.println(div2.length);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+               //////////////////////
             if (br != null) {
                 try {
                     br.close();
@@ -117,13 +65,6 @@ public class ReadCSV {
                 }
             }
         }
-        //funcao adicionar ponto na outra classe(deve dar certo) -> -> -> ->
-        System.out.println("lista:");
-        System.out.println(lista.getNome(0));
-        System.out.println(lista.getTipo(0));
-        System.out.println(lista.getCoordX(0));
-        System.out.println(lista.getCoordY(0));
-        System.out.println("Done");
     }
 
     public double getCoordX(int index) {
@@ -133,13 +74,24 @@ public class ReadCSV {
     public double getCoordY(int index) {
         return lista.getCoordY(index);
     }
+    
+    public double getLngParada(int index) {
+        return listaParadas.getCoordX(index);
+    }
+    
+    public double getLatParada(int index){
+        return listaParadas.getCoordY(index);
+    }
 
     public int getSize() {
         return lista.size();
     }
+    
+    public int getSizeParadas() {
+        return listaParadas.size();
+    }
 
     double ParseDouble(String strNumber) {
->>>>>>> 0ee5e547cf199f4979c9d600c4d127515b5441dd
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -148,12 +100,6 @@ public class ReadCSV {
             }
         } else {
             return 0;
-            //
         }
-<<<<<<< HEAD
-	}
-}
-=======
     }
 }
->>>>>>> 0ee5e547cf199f4979c9d600c4d127515b5441dd

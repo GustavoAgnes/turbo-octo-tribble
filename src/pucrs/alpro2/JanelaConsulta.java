@@ -17,9 +17,7 @@ import javax.swing.JPanel;
 
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.GeoPosition;
-
 import javax.swing.JButton;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -34,21 +32,10 @@ public class JanelaConsulta extends javax.swing.JFrame {
     
     private JPanel painelMapa;
     private JPanel painelLateral;
-    pucrs.alpro2.algoritmos.AlgoritmosGeograficos Ag = new pucrs.alpro2.algoritmos.AlgoritmosGeograficos();
-    
-	//testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-	private double GreatCircleDistanceInMeters(double aLong1,double aLat1,double aLong2,double aLat2)
-    {
-    double cos_angle = Math.sin(aLat1) * Math.sin(aLat2) + Math.cos(aLat1) * Math.cos(aLat2) * Math.cos(aLong2 - aLong1);
-    if (cos_angle >= 1)
-        return 0;
-
-    double angle = Math.acos(cos_angle);
-    return angle * 6378137;
-    }
-	//
-	
-    
+    int nOcorr;
+    int valor;
+    int count=0;
+    pucrs.alpro2.algoritmos.AlgoritmosGeograficos  Ag = new pucrs.alpro2.algoritmos.AlgoritmosGeograficos();
     
     /**
      * Creates new form JanelaConsulta
@@ -62,7 +49,6 @@ public class JanelaConsulta extends javax.swing.JFrame {
         mouse = new EventosMouse();        		
         gerenciador.getMapKit().getMainMap().addMouseListener(mouse);
         gerenciador.getMapKit().getMainMap().addMouseMotionListener(mouse);       
-        
 
         painelMapa = new JPanel();
         painelMapa.setLayout(new BorderLayout());
@@ -88,71 +74,106 @@ public class JanelaConsulta extends javax.swing.JFrame {
     private void consulta(java.awt.event.ActionEvent evt) {
         // Para obter o centro e o raio, usar como segue:
     	GeoPosition centro = gerenciador.getSelecaoCentro();
-<<<<<<< HEAD
-    	//int raio = gerenciador.getRaio();        
-
-=======
     	int raio = gerenciador.getRaio();    
-        System.out.println("RAIO = "+raio);
-        System.out.println("Centro?: "+gerenciador.getSelecaoCentro());
-        /*
-        if((-30.064064 - (-30.047364752836465))**2 + (-51.1946068 -(-51.18075370788574))**2 >= (raio**2)){
-            System.out.println("Dentro do circulo/exemplo/Rua Guilherme Alves");
-        }
-        //-30.0490475;-51.1836586
-        */ // n√£o funcionando
-      
-        //
->>>>>>> 0ee5e547cf199f4979c9d600c4d127515b5441dd
         // Lista para armazenar o resultado da consulta
-        List<MyWaypoint> lstPoints = new ArrayList<>();  
-        //testes
-        /*
-        ReadCSV rd = new ReadCSV();
-        rd.run();
-        System.out.println(rd.getCoordX(0));
-        System.out.println(rd.getCoordY(0));
-        */
-        //
+        List<MyWaypoint> lstPoints = new ArrayList<>();
+        List<MyWaypoint> lstFurtos = new ArrayList<>();
+        List<MyWaypoint> lstParadas = new ArrayList<>();
         ReadCSV rd = new ReadCSV();
         rd.run();
 
         // Exemplo:
-        double valor = 250; // ex: valor da consulta (criminalidade ou dist√¢ncia)
-        GeoPosition loc = new GeoPosition(-30.05, -51.18); // ex: localiza√ß√£o da parada
-       // lstPoints.add(new MyWaypoint(Color.BLUE, valor, loc));         
-        lstPoints.add(new MyWaypoint(Color.GREEN,valor, loc));
-<<<<<<< HEAD
-        for(int i=0;i<rd.getSize();i++){
-     	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
-     	   lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
-     	   double x1 = rd.getCoordX(i);
-     	   double xC = gerenciador.getSelecaoCentro().getLatitude();
-     	   double x2 = rd.getCoordY(i);
-     	   double yC = gerenciador.getSelecaoCentro().getLongitude();
-     	   GeoPosition ponto1 = new GeoPosition(x1,x2);
-     	   GeoPosition ponto2 = new GeoPosition(xC,yC);
-     	  // System.out.println("Distancia entre os pontos: "+Ag.calcDistancia(ponto1, ponto2));
-     	//  System.out.println("Raio em radianos: "+Math.toRadians(gerenciador.getRaio()));
-        }
-
-        /////////////////////////////// lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
-
-=======
-       for(int i=0;i<rd.getSize();i++){
-    	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
-    	   lstPoints.add(new MyWaypoint(Color.BLUE,valor, loc2));
-       }
->>>>>>> 0ee5e547cf199f4979c9d600c4d127515b5441dd
-        // Informa o resultado para o gerenciador
-        gerenciador.setPontos(lstPoints);
-        // Informa o intervalo de valores gerados, para calcular a cor de cada ponto
-        double menorValor = 15;  // exemplo
-        double maiorValor = 250; // exemplo
-        gerenciador.setIntervaloValores(menorValor, maiorValor);        
         
+        for(int i=0;i<rd.getSizeParadas();i++){ // adicionando paradas
+    double lat2_a = rd.getLatParada(i);
+    double lng2_a = rd.getLngParada(i);
+    double lat_b = gerenciador.getSelecaoCentro().getLatitude();
+    double lng_b = gerenciador.getSelecaoCentro().getLongitude();
+    if(numOcorr(lat2_a, lng2_a, lat_b, lng_b)>200){     //Atualmente n„o faz sentido pois a cor do proprio furto muda e n„o a cor da parada, alterar!
+    	valor = 200;
+    }
+    else{
+    valor = numOcorr(lat2_a, lng2_a, lat_b, lng_b); // ex: valor da consulta (criminalidade ou dist‚ncia)
+    }
+    
+    
+            GeoPosition loc3 = new GeoPosition(rd.getLatParada(i), rd.getLngParada(i));
+            if(gps2m(lat2_a, lng2_a, lat_b, lng_b)< gerenciador.getRaio()){
+            	System.out.println("Valor: "+valor);
+            lstParadas.add(new MyWaypoint(Color.GREEN,200,loc3));
+            }
+        }
+       for(int i=0;i<rd.getSize();i++){     // adicionando furtos
+    double lat_a = rd.getCoordX(i);
+    double lng_a = rd.getCoordY(i);
+    double lat_b = gerenciador.getSelecaoCentro().getLatitude();
+    double lng_b = gerenciador.getSelecaoCentro().getLongitude();
+ 
+    
+    
+   // System.out.println(numOcorr(lat_a, lng_a, lat_b, lng_b)); /////////////
+    
+    
+    
+    
+    	   GeoPosition loc2 = new GeoPosition(rd.getCoordX(i), rd.getCoordY(i));
+           if(gps2m(lat_a, lng_a, lat_b, lng_b)< gerenciador.getRaio()){
+               lstFurtos.add(new MyWaypoint(Color.RED,200, loc2));
+       }
+       }
+        // Informa o resultado para o gerenciador
+       lstPoints.addAll(lstParadas);
+       lstPoints.addAll(lstFurtos);
+       gerenciador.setPontos(lstPoints);
+        // Informa o intervalo de valores gerados, para calcular a cor de cada ponto
+        double menorValor = 1;  // exemplo
+        double maiorValor = 200; // exemplo
+        gerenciador.setIntervaloValores(menorValor, maiorValor);    
+       
         this.repaint();
     }
+    /*
+    private int numOcorr(){
+    	ReadCSV rd = new ReadCSV();
+    	rd.run();
+    	int count=0;
+    	for(int i=0; i< rd.getSize();i++){
+    		double lat_a = rd.getCoordX(i);
+		    double lng_a = rd.getCoordY(i);
+		    double lat_b = gerenciador.getSelecaoCentro().getLatitude();
+		    double lng_b = gerenciador.getSelecaoCentro().getLongitude();
+		    
+    		if(gps2m(lat_a, lng_a, lat_b, lng_b)< 1500){
+    			count++;
+    			System.out.println(count);
+    		}
+    	}
+    	return count;
+    }
+    */
+    private int numOcorr(double lat_a,double lng_a,double lat_b,double lng_b){
+//    	
+    	if(gps2m(lat_a, lng_a, lat_b, lng_b)< 1500){
+    			count++;
+    		}
+    	return count;
+    }
+    //for(int i=0;i<rd.g)
+      private double gps2m(double lat_a, double lng_a, double lat_b, double lng_b) {
+    float pk = (float) (180/3.14169);
+
+    double a1 = lat_a / pk;
+    double a2 = lng_a / pk;
+    double b1 = lat_b / pk;
+    double b2 = lng_b / pk;
+
+    double t1 = Math.cos(a1)*Math.cos(a2)*Math.cos(b1)*Math.cos(b2);
+    double t2 = Math.cos(a1)*Math.sin(a2)*Math.cos(b1)*Math.sin(b2);
+    double t3 = Math.sin(a1)*Math.sin(b1);
+    double tt = Math.acos(t1 + t2 + t3);
+
+    return 6366000*tt;
+}
     
     private class EventosMouse extends MouseAdapter
     {
@@ -164,18 +185,17 @@ public class JanelaConsulta extends javax.swing.JFrame {
     		GeoPosition loc = mapa.convertPointToGeoPosition(e.getPoint());
 //    		System.out.println(loc.getLatitude()+", "+loc.getLongitude());
     		lastButton = e.getButton();
-    		// Bot√£o 3: seleciona localiza√ß√£o
+    		// Bot„o 3: seleciona localizaÁ„o
     		if(lastButton==MouseEvent.BUTTON3) {  			
     			gerenciador.setSelecaoCentro(loc);
     			gerenciador.setSelecaoBorda(loc);
     			//gerenciador.getMapKit().setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
     			gerenciador.getMapKit().repaint();    			
     		}
-    	}
+    	}    
     	
-
     	public void mouseDragged(MouseEvent e) {
-    		// Arrasta com o bot√£o 3 para definir o raio
+    		// Arrasta com o bot„o 3 para definir o raio
     		if(lastButton ==  MouseEvent.BUTTON3) {    			
     			JXMapViewer mapa = gerenciador.getMapKit().getMainMap();
     			gerenciador.setSelecaoBorda(mapa.convertPointToGeoPosition(e.getPoint()));

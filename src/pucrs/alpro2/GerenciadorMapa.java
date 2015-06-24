@@ -49,7 +49,7 @@ public class GerenciadorMapa {
     };
 
     /*
-     * Cria um gerenciador de mapas, a partir de uma posi√ß√£o e uma fonte de imagens
+     * Cria um gerenciador de mapas, a partir de uma posiÁ„o e uma fonte de imagens
      * 
      * @param centro centro do mapa
      * @param fonte fonte das imagens (FonteImagens.OpenStreetMap ou FonteImagens.VirtualEarth)
@@ -68,11 +68,11 @@ public class GerenciadorMapa {
         // Ajustando a opacidade do mapa (50%)
         jXMapKit.getMainMap().setAlpha(0.5f);
 
-        // Ajustando o n√≠vel de zoom do mapa
+        // Ajustando o nÌvel de zoom do mapa
         jXMapKit.setZoom(4);
         // Informando o centro do mapa
         jXMapKit.setAddressLocation(centro);
-        // Indicando que n√£o desejamos ver um marcador nessa posi√ß√£o
+        // Indicando que n„o desejamos ver um marcador nessa posiÁ„o
         jXMapKit.setAddressLocationShown(false);
 
         // Criando um objeto para "pintar" os pontos
@@ -84,24 +84,24 @@ public class GerenciadorMapa {
             @Override
             public void paintWaypoint(Graphics2D g, JXMapViewer viewer, MyWaypoint wp) {
 
-                // Desenha cada waypoint como um pequeno c√≠rculo            	
+                // Desenha cada waypoint como um pequeno cÌrculo            	
                 Point2D point = viewer.getTileFactory().geoToPixel(wp.getPosition(), viewer.getZoom());
                 int x = (int) point.getX();
                 int y = (int) point.getY();
                 //g = (Graphics2D) g.create();
                 
-                // Obt√©m a cor do waypoint
+                // ObtÈm a cor do waypoint
                 Color cor = wp.getColor();
-                // Normaliza os valores entre 0 (m√≠nimo) e 1 (m√°ximo)
+                // Normaliza os valores entre 0 (mÌnimo) e 1 (m·ximo)
                 float fator = (float) ((wp.getValue() - valorMenor) / (valorMaior-valorMenor));
-                // Seta a opacidade da cor usando o fator de import√¢ncia calculado (0=m√≠nimo,1=m√°ximo)
+                // Seta a opacidade da cor usando o fator de import‚ncia calculado (0=mÌnimo,1=m·ximo)
                 g.setColor(new Color(cor.getRed()/255.0f, cor.getGreen()/255.0f, cor.getBlue()/255.0f, fator));
                 g.fill(new Ellipse2D.Float(x - 3, y - 3, 6, 6));
             }
         });
 
         // Criando um objeto para desenhar os elementos de interface
-        // (c√≠rculo de sele√ß√£o, etc)
+        // (cÌrculo de seleÁ„o, etc)
         Painter<JXMapViewer> guiPainter = new Painter<JXMapViewer>() {
             public void paint(Graphics2D g, JXMapViewer map, int w, int h) {            	
             	if(selCentro == null || selBorda == null)
@@ -113,7 +113,7 @@ public class GerenciadorMapa {
                 int raio = (int) Math.sqrt(Math.pow(point.getX()-pont2.getX(),2)+
                 		Math.pow(point.getY()-pont2.getY(),2));
                 int r = raio/2;
-            	g.setColor(Color.RED);
+            	g.setColor(Color.BLUE); // mudar cor
             	g.setStroke(new BasicStroke(2));
             	g.draw(new Ellipse2D.Float(x-r, y-r, raio, raio));
             	g.drawString(getRaio()+" metros", x+r, y+r);
@@ -121,7 +121,7 @@ public class GerenciadorMapa {
             }
         };
         
-        // Um CompoundPainter permite combinar v√°rios painters ao mesmo tempo...
+        // Um CompoundPainter permite combinar v·rios painters ao mesmo tempo...
         CompoundPainter cp = new CompoundPainter();
         cp.setPainters(pontosPainter, guiPainter);
 
@@ -132,7 +132,7 @@ public class GerenciadorMapa {
     }
 
     /*
-     * Informa a localiza√ß√£o do ponto central da regi√£o
+     * Informa a localizaÁ„o do ponto central da regi„o
      * @param ponto central
      */
     public void setSelecaoCentro(GeoPosition sel) {
@@ -144,23 +144,23 @@ public class GerenciadorMapa {
 	}
     
     /*
-     * Informa a localiza√ß√£o de um ponto da borda da regi√£o
-     * Utilizamos isso para definir o raio da regi√£o e desenhar o c√≠rculo 
+     * Informa a localizaÁ„o de um ponto da borda da regi„o
+     * Utilizamos isso para definir o raio da regi„o e desenhar o cÌrculo 
      * @param ponto da borda
      */
     public void setSelecaoBorda(GeoPosition sb) {
     	this.selBorda = sb;
     }
         
-    // Retorna o raio da regi√£o selecionada (em metros)
+    // Retorna o raio da regi„o selecionada (em metros)
     public int getRaio() {    
     	return (int) (AlgoritmosGeograficos.calcDistancia(selBorda, selCentro)*500);
-    }   
+    }    
     
     public void setIntervaloValores(double valMenor, double valMaior) {
     	this.valorMenor = valMenor;
 		this.valorMaior = valMaior;
-		System.out.println(valMenor+"->"+valMaior);
+		//System.out.println(valMenor+"->"+valMaior);
 	}    
     
     /*
@@ -173,10 +173,10 @@ public class GerenciadorMapa {
         // Informando o conjunto ao painter
         pontosPainter.setWaypoints(pontos);
     }
-    
+
     /*
-     * Retorna a refer√™ncia ao objeto JXMapKit, para ajuste de par√¢metros (se for o caso)
-     * @returns refer√™ncia para objeto JXMapKit em uso
+     * Retorna a referÍncia ao objeto JXMapKit, para ajuste de par‚metros (se for o caso)
+     * @returns referÍncia para objeto JXMapKit em uso
      */
     public JXMapKit getMapKit() {
         return jXMapKit;
