@@ -1,0 +1,1 @@
+//comparator entre todas paradas da lista para comparação de criminalidade
