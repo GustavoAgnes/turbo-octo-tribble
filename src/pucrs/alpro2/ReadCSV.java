@@ -18,11 +18,18 @@ public class ReadCSV {
     }
     LinkedList lista = new LinkedList();
     LinkedList listaParadas = new LinkedList();
+    JanelaConsulta jc = new JanelaConsulta();
 
     public void run() {
+<<<<<<< HEAD
         String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
         //String csvFile = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/furtos.csv";
         String paradas = "C:/Users/GustavoPC/turbo-octo-tribble/taxis.csv";
+=======
+        //String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
+        String csvFile = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/furtos.csv";
+        String paradas = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/taxis.csv";
+>>>>>>> 4394333ed437e6479fdf024be2a5d1ea4e613a66
         BufferedReader br = null;
         JanelaConsulta JC = new JanelaConsulta();
         BufferedReader br2 = null;
@@ -91,6 +98,17 @@ public class ReadCSV {
     public double getLatParada(int index){
         return listaParadas.getCoordY(index);
     }
+    
+    public double proxParada() {
+        for(int i=0;i<=getSizeParadas();i++){
+            for(int j=0;i<=getSizeParadas();j++){
+                if(jc.gps2m(getLatParada(i),getLngParada(i),getLatParada(j),getLngParada(j)) < jc.gps2m(getLatParada(i),getLngParada(i),getLatParada(j+1),getLngParada(j+1))){
+                    System.out.println("...");
+                }
+            }
+        }
+        return 0;
+    }
 
     public int getSize() {
         return lista.size();
@@ -111,4 +129,8 @@ public class ReadCSV {
             return 0;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4394333ed437e6479fdf024be2a5d1ea4e613a66
