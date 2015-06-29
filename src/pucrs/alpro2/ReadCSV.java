@@ -20,16 +20,11 @@ public class ReadCSV {
     LinkedList listaParadas = new LinkedList();
 
     public void run() {
-<<<<<<< HEAD
         String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
         //String csvFile = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/furtos.csv";
         String paradas = "C:/Users/GustavoPC/turbo-octo-tribble/taxis.csv";
-=======
-        //String csvFile = "C:/Users/GustavoPC/turbo-octo-tribble/furtos.csv";
-        String csvFile = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/furtos.csv";
-        String paradas = "C:/Users/Gustavo_Agnes/Desktop/TF/turbo-octo-tribble-master/taxis.csv";
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e
         BufferedReader br = null;
+        JanelaConsulta JC = new JanelaConsulta();
         BufferedReader br2 = null;
         String line = "";
         String line2 = "";
@@ -46,13 +41,13 @@ public class ReadCSV {
                 String[] prefixos = {"RUA", "AV", "BC", "PCA"};
                 for (String p : prefixos) {
                     if (div[2].startsWith(p)) {
-                        lista.add(div[2].substring(p.length() + 1).trim(), p, ParseDouble(div[11]), ParseDouble(div[12]));
+                        lista.add(div[2].substring(p.length() + 1).trim(), p, ParseDouble(div[11]), ParseDouble(div[12]),0);
                     }
                 }
             }
             while ((line2 = br2.readLine())!=null){
                 String[] div2 = line2.split(cvsSplitBy);
-                listaParadas.add(div2[1], div2[2], ParseDouble(div2[3]), ParseDouble(div2[4]));
+                listaParadas.add(div2[1], div2[2], ParseDouble(div2[3]), ParseDouble(div2[4]), 0);
                 //System.out.println(div2[3]);
                 //System.out.println(div2[4]);
                 //System.out.println(div2.length);
@@ -75,6 +70,14 @@ public class ReadCSV {
 
     public double getCoordX(int index) {
         return lista.getCoordX(index);
+    }
+    
+    public String getNomeParada(int index) {
+    	return (String) listaParadas.getNome(index);
+    }
+    
+    public String getTipoParada(int index) {
+    	return (String) listaParadas.getTipo(index);
     }
 
     public double getCoordY(int index) {
@@ -108,8 +111,4 @@ public class ReadCSV {
             return 0;
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e

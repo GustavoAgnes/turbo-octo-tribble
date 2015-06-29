@@ -38,14 +38,16 @@ public class LinkedList<E> {
 		public E tipo;
 		public double coordX;
 		public double coordY;
+		public static int NC; ///////////////////////////
 		public Node<E> next;
 		public Node<E> prev;
 
-		public Node(E name, E type, double cX, double cY) {
+		public Node(E name, E type, double cX, double cY, int nivC) {
 			nome = name;
 			tipo = type;
 			coordX = cX;
 			coordY = cY;
+			NC = nivC;
 			prev = next = null;
 		}
 	}
@@ -58,125 +60,13 @@ public class LinkedList<E> {
 	 * Cria uma lista vazia.
 	 */
 	public LinkedList() {
-		header = new Node<E>(null, null, 0, 0); // cria sentinela de
-<<<<<<< HEAD
+		header = new Node<E>(null, null, 0, 0, 0); // cria sentinela de
 		// in�cio
-trailer = new Node<E>(null, null, 0, 0);// cria sentinela de fim
-header.next = trailer; // conecta sentinela de in�cio no sentinela de
-// fim
-trailer.prev = header; // conecta sentinela de fim no sentinela de
-// in�cio
-count = 0; // indica que a lista est� vazia
-}
-
-// C�DIGO ORACLE
-private Node<E> entry(int index) {
-if (index < 0 || index >= count)
-throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
-+ count);
-Node e;
-if (index < (count >> 1)) {
-e = header.next;
-for (int i = 0; i <= index; i++)
-e = e.next;
-} else {
-e = trailer.prev;
-for (int i = count; i > index; i--)
-e = e.prev;
-}
-return e;
-}
-
-//
-
-public E getNome(int index) {
-return entry(index).nome;
-}
-
-public E getTipo(int index) {
-return entry(index).tipo;
-}
-
-public double getCoordX(int index) {
-return entry(index).coordX;
-}
-
-public double getCoordY(int index) {
-return entry(index).coordY;
-}
-
-public void add(E nome, E tipo, double coordX, double coordY) {
-Node<E> n = new Node<E>(nome, tipo, coordX, coordY); // novo nodo que
-								// ser�
-								// adicionado �
-// lista
-Node<E> last = trailer.prev;// nodo anterior ao novo nodo, ap�s a
-	// inser��o
-
-n.prev = last; // conecta o novo com o atual �ltimo elemento
-n.next = trailer; // conecta o novo com o sentinela de fim
-last.next = n; // conecta o �ltimo elemento atual com o novo
-trailer.prev = n; // conecta o sentinela de fim com o novo
-count++; // registra que a lista recebeu mais um nodo
-}
-
-/*
-* public void add(int index, E nome, E tipo) { if (index < 0 || index >
-* count) { throw new IndexOutOfBoundsException("Pos. invalida!"); }
-* 
-* // Node<E> aux = getNodeAt(index); Node<E> n = new Node<E>(nome, tipo,
-* coordX, coordY); // Node<E> ant = aux.prev;
-* 
-* // n.next = aux; // n.prev = ant; // ant.next = n; // aux.prev = n;
-* count++; }
-*/
-public void clear() {
-header.next = trailer; // conecta sentinela de in�cio no sentinela de
-// fim
-trailer.prev = header; // conecta sentinela de fim no sentinela de
-// in�cio
-count = 0; // indica que a lista est� vazia
-}
-
-public boolean isEmpty() {
-return count == 0;
-}
-
-public int size() {
-return count;
-}
-
-/*
-* public void addFirst(E e) { add(0, e, null); }
-*/
-public String toString() {
-// ver
-// http://www.docjar.com/html/api/java/util/AbstractCollection.java.html
-String s = "{";
-Node<E> aux = header.next;
-if (aux != trailer) {
-s += "" + aux.tipo + "." + aux.nome;
-aux = aux.next;
-while (aux != trailer) {
-s += ", " + aux.tipo + ":" + aux.nome;
-aux = aux.next;
-}
-}
-s += "}";
-return s;
-}
-
-public Iterator<E> iterator() {
-return new DoubleLinkedIterator();
-}
-}
-=======
-														// in�cio
-		trailer = new Node<E>(null, null, 0, 0);// cria sentinela de fim
+		trailer = new Node<E>(null, null, 0, 0, 0);// cria sentinela de fim
 		header.next = trailer; // conecta sentinela de in�cio no sentinela de
-								// fim
+		// fim
 		trailer.prev = header; // conecta sentinela de fim no sentinela de
-								// in�cio
+		// in�cio
 		count = 0; // indica que a lista est� vazia
 	}
 
@@ -215,14 +105,23 @@ return new DoubleLinkedIterator();
 	public double getCoordY(int index) {
 		return entry(index).coordY;
 	}
+	
+	public double getNC(int index) {
+		return entry(index).NC;
+	}
+	
+	public double getNC(){
+		return Node.NC;
+	}
+	
 
-	public void add(E nome, E tipo, double coordX, double coordY) {
-		Node<E> n = new Node<E>(nome, tipo, coordX, coordY); // novo nodo que
-																// ser�
-																// adicionado �
+	public void add(E nome, E tipo, double coordX, double coordY, int NC) {
+		Node<E> n = new Node<E>(nome, tipo, coordX, coordY, NC); // novo nodo que
+		// ser�
+		// adicionado �
 		// lista
 		Node<E> last = trailer.prev;// nodo anterior ao novo nodo, ap�s a
-									// inser��o
+		// inser��o
 
 		n.prev = last; // conecta o novo com o atual �ltimo elemento
 		n.next = trailer; // conecta o novo com o sentinela de fim
@@ -243,9 +142,9 @@ return new DoubleLinkedIterator();
 	 */
 	public void clear() {
 		header.next = trailer; // conecta sentinela de in�cio no sentinela de
-								// fim
+		// fim
 		trailer.prev = header; // conecta sentinela de fim no sentinela de
-								// in�cio
+		// in�cio
 		count = 0; // indica que a lista est� vazia
 	}
 
@@ -280,6 +179,4 @@ return new DoubleLinkedIterator();
 	public Iterator<E> iterator() {
 		return new DoubleLinkedIterator();
 	}
-
 }
->>>>>>> b2d1a76130486e4c08725d693922b9848596f81e
